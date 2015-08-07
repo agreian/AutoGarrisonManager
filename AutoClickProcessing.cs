@@ -18,7 +18,7 @@ namespace AutoGarrisonMissions
 #else
         private const int DEFAULT_JUMP_SLEEP = 60000;
         private const int DEFAULT_MISSION_SLEEP = 1000;
-        private const int DEFAULT_REROLL_SLEEP = 1200000;
+        private const int DEFAULT_REROLL_SLEEP = 600000;
 #endif
 
         private static readonly Random _random = new Random();

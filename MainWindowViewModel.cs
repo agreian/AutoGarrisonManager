@@ -34,6 +34,8 @@ namespace AutoGarrisonMissions
         private Hotkey _controlPHotkey;
         private WagFile _currentWagFile;
         private HotkeyHost _hotkeyHost;
+        private AutoAction _lastSelectedAction;
+        private bool _minOrMax = true;
         private string _mousePosition1;
         private string _mousePosition2;
         private AutoAction _selectedMissionAction;
@@ -220,6 +222,8 @@ namespace AutoGarrisonMissions
             set
             {
                 _selectedMissionAction = value;
+                _minOrMax = true;
+                _lastSelectedAction = value;
                 RaisePropertyChanged(() => SelectedMissionAction);
 
                 RemoveMissionActionCommand.RaiseCanExecuteChanged();
@@ -234,6 +238,8 @@ namespace AutoGarrisonMissions
             set
             {
                 _selectedRerollAction = value;
+                _minOrMax = true;
+                _lastSelectedAction = value;
                 RaisePropertyChanged(() => SelectedRerollAction);
 
                 RemoveRerollActionCommand.RaiseCanExecuteChanged();
@@ -351,6 +357,22 @@ namespace AutoGarrisonMissions
 
                 var position = Control.MousePosition;
                 MousePosition1 = string.Format("X = {0}, Y = {1}", position.X, position.Y);
+            }
+
+            if (_lastSelectedAction != null)
+            {
+                if (_minOrMax)
+                {
+                    _lastSelectedAction.SetXMin(Control.MousePosition.X);
+                    _lastSelectedAction.SetYMin(Control.MousePosition.Y);
+                }
+                else
+                {
+                    _lastSelectedAction.SetXMax(Control.MousePosition.X);
+                    _lastSelectedAction.SetYMax(Control.MousePosition.Y);
+                }
+
+                _minOrMax = !_minOrMax;
             }
         }
 

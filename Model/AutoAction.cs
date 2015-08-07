@@ -7,17 +7,19 @@ namespace AutoGarrisonMissions.Model
     [Serializable]
     public class AutoAction : ObservableObject
     {
+        #region Fields
+
         private ushort _xMax;
         private ushort _xMin;
         private ushort _yMax;
         private ushort _yMin;
 
+        #endregion
+
         #region Properties
 
         [XmlIgnore]
         public TimeSpan Interval { get; set; }
-
-        public string Name { get; set; }
 
         [XmlElement("Interval")]
         public string IntervalString
@@ -30,6 +32,8 @@ namespace AutoGarrisonMissions.Model
                 RaisePropertyChanged(() => IntervalString);
             }
         }
+
+        public string Name { get; set; }
 
         public ushort XMax
         {
@@ -114,6 +118,30 @@ namespace AutoGarrisonMissions.Model
         public override string ToString()
         {
             return string.Format("Name : {0}, XMin = {2}, XMax = {3}, YMin = {4}, YMax = {5}, Interval : {1}", Name, Interval, XMin, XMax, YMin, YMax);
+        }
+
+        public void SetXMax(int xMax)
+        {
+            XMax = Convert.ToUInt16(xMax);
+            //RaisePropertyChanged(() => XMax);
+        }
+
+        public void SetXMin(int xMin)
+        {
+            _xMin = Convert.ToUInt16(xMin);
+            RaisePropertyChanged(() => XMin);
+        }
+
+        public void SetYMax(int yMax)
+        {
+            YMax = Convert.ToUInt16(yMax);
+            //RaisePropertyChanged(() => YMax);
+        }
+
+        public void SetYMin(int yMin)
+        {
+            _yMin = Convert.ToUInt16(yMin);
+            RaisePropertyChanged(() => YMin);
         }
 
         #endregion
